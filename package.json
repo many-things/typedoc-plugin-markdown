@@ -1,35 +1,45 @@
 {
-  "private": true,
-  "workspaces": [
-    "packages/*"
+  "name": "typedoc-plugin-markdown",
+  "version": "3.13.1",
+  "description": "A plugin for TypeDoc that enables TypeScript API documentation to be generated in Markdown.",
+  "main": "dist/index.js",
+  "files": [
+    "dist/"
   ],
   "scripts": {
-    "lint": "lerna run lint",
-    "build": "lerna run build",
-    "markdownlint": "lerna run markdownlint",
-    "test": "lerna run test --parallel",
-    "deploy": "lerna publish from-package",
-    "postinstall": "lerna bootstrap"
+    "lint": "eslint ./src --ext .ts",
+    "markdownlint": "yarn run docs:md && markdownlint ./docs/md",
+    "prepublishOnly": "yarn run lint && yarn run build && yarn run test",
+    "build": "rm -rf dist && tsc && copyfiles --up 1 ./src/**/*.hbs ./dist/",
+    "test": "jest --colors",
+    "build-and-test": "yarn run build && yarn run test",
+    "docs": "yarn run build && yarn run docs:md && yarn run docs:html",
+    "docs:md": "typedoc --plugin typedoc-plugin-markdown --plugin typedoc-plugin-mdn-links --options ../../test/typedoc-options.json --out ./docs/md",
+    "docs:html": "typedoc --options ../../test/typedoc-options.json --plugin typedoc-plugin-mdn-links --out ./docs/html"
   },
-  "devDependencies": {
-    "@types/fs-extra": "^9.0.13",
-    "@types/jest": "^28.1.3",
-    "@types/node": "^18.0.0",
-    "@typescript-eslint/eslint-plugin": "^5.30.0",
-    "@typescript-eslint/parser": "^5.30.0",
-    "copyfiles": "^2.4.1",
-    "eslint": "^8.18.0",
-    "fs-extra": "^10.1.0",
-    "jest": "^28.1.1",
-    "lerna": "^5.1.6",
-    "markdownlint": "^0.26.0",
-    "markdownlint-cli": "^0.31.1",
-    "npm-run-all": "^4.1.5",
-    "prettier": "^2.7.1",
-    "ts-jest": "^28.0.5",
-    "ts-node": "^10.8.1",
-    "typedoc": "^0.23.2",
-    "typedoc-plugin-mdn-links": "^2.0.0",
-    "typescript": "^4.7.4"
+  "author": "Thomas Grey",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tgreyuk/typedoc-plugin-markdown/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tgreyuk/typedoc-plugin-markdown.git",
+    "directory": "packages/typedoc-plugin-markdown"
+  },
+  "homepage": "https://github.com/tgreyuk/typedoc-plugin-markdown/tree/master/packages/typedoc-plugin-markdown",
+  "keywords": [
+    "markdown",
+    "typescript",
+    "documentation",
+    "api",
+    "typedocplugin",
+    "typedoc"
+  ],
+  "peerDependencies": {
+    "typedoc": ">=0.23.0"
+  },
+  "dependencies": {
+    "handlebars": "^4.7.7"
   }
 }

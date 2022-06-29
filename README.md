@@ -1,9 +1,52 @@
-# Packages
+# typedoc-plugin-markdown
 
-| Package                   | Badges                                                                                                                                                                                                                        | Details                                                                                                                 |
-| :------------------------ | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------------------------------------------- |
-| typedoc-plugin-markdown   | [![typedoc-plugin-markdown](https://img.shields.io/npm/v/typedoc-plugin-markdown.svg)](https://www.npmjs.com/package/typedoc-plugin-markdown) ![Downloads](https://img.shields.io/npm/dm/typedoc-plugin-markdown.svg)         | [Readme](./packages/typedoc-plugin-markdown#readme)  \| [Changelog](./packages/typedoc-plugin-markdown/CHANGELOG.md)    |
-| docusaurus-plugin-typedoc | [![docusaurus-plugin-typedoc](https://img.shields.io/npm/v/docusaurus-plugin-typedoc.svg)](https://www.npmjs.com/package/docusaurus-plugin-typedoc) ![Downloads](https://img.shields.io/npm/dm/docusaurus-plugin-typedoc.svg) | [Readme](./packages/docusaurus-plugin-typedoc#readme) \| [Changelog](./packages/docusaurus-plugin-typedoc/CHANGELOG.md) |
-| vuepress-plugin-typedoc   | [![vuepress-plugin-typedoc](https://img.shields.io/npm/v/vuepress-plugin-typedoc.svg)](https://www.npmjs.com/package/vuepress-plugin-typedoc) ![Downloads](https://img.shields.io/npm/dm/vuepress-plugin-typedoc.svg)         | [Readme](./packages/vuepress-plugin-typedoc#readme) \| [Changelog](./packages/vuepress-plugin-typedoc/CHANGELOG.md)     |
-| typedoc-github-wiki-theme | [![typedoc-github-wiki-theme](https://img.shields.io/npm/v/typedoc-github-wiki-theme.svg)](https://www.npmjs.com/package/typedoc-github-wiki-theme) ![Downloads](https://img.shields.io/npm/dm/typedoc-github-wiki-theme.svg) | [Readme](./packages/typedoc-github-wiki-theme#readme) \| [Changelog](./packages/typedoc-github-wiki-theme/CHANGELOG.md) |
-| typedoc-gitlab-wiki-theme | [![typedoc-gitlab-wiki-theme](https://img.shields.io/npm/v/typedoc-gitlab-wiki-theme.svg)](https://www.npmjs.com/package/typedoc-gitlab-wiki-theme) ![Downloads](https://img.shields.io/npm/dm/typedoc-gitlab-wiki-theme.svg) | [Readme](./packages/typedoc-gitlab-wiki-theme#readme) \| [Changelog](./packages/typedoc-gitlab-wiki-theme/CHANGELOG.md) |
+A plugin for [TypeDoc](https://github.com/TypeStrong/typedoc) that renders TypeScript API documentation as Markdown.
+
+[![npm](https://img.shields.io/npm/v/typedoc-plugin-markdown.svg)](https://www.npmjs.com/package/typedoc-plugin-markdown)
+[![Build Status](https://github.com/tgreyuk/typedoc-plugin-markdown/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/tgreyuk/typedoc-plugin-markdown/actions/workflows/ci.yml)
+
+## What it does?
+
+The plugin replaces the default HTML theme with a built-in Markdown theme and exposes some additional options.
+
+Useful if documentation is required to be included in project README files, Wikis and static site generators.
+
+## Installation
+
+```bash
+npm install --save-dev typedoc typedoc-plugin-markdown
+```
+
+## Usage
+
+Usage is the same as documented at [TypeDoc](https://typedoc.org/guides/installation/#command-line-interface).
+
+```bash
+typedoc --plugin typedoc-plugin-markdown --out docs src/index.ts
+```
+
+> The plugin switches the default html theme to the in-built markdown theme as default. If using with the default html theme, use `--plugin none` to switch the plugin off.
+
+## Options
+
+The following options can be used in addition to relevant [TypeDoc options](https://typedoc.org/guides/options/)
+(please note that TypeDoc options specific to the html theme will be ignored).
+
+- `--entryDocument<string>`<br>
+  The file name of the entry document. Defaults to `README.md`.
+- `--hideBreadcrumbs<boolean>`<br>
+  Do not render breadcrumbs in template header. Defaults to `false`.
+- `--hideInPageTOC<boolean>`<br>
+  Do not render in-page table of contents items. Defaults to `false`.
+- `--hideMembersSymbol<boolean>`<br>
+  Do not add special symbols for class members. Defaults to `false`.
+- `--publicPath<string>`<br>
+  Specify the base path for all urls. If undefined urls will be relative. Defaults to `.`.
+- `--namedAnchors<boolean>`<br>
+  Use HTML named anchors tags for implementations that do not assign header ids. Defaults to `false`.
+- `--preserveAnchorCasing<boolean>`<br>
+  Preserve anchor id casing for implementations where original case is desirable. Defaults to `false`.
+
+## License
+
+[MIT](https://github.com/tgreyuk/typedoc-plugin-markdown/blob/master/LICENSE)
