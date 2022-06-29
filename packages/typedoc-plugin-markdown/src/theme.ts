@@ -150,7 +150,7 @@ export class MarkdownTheme extends Theme {
   }
 
   toUrl(mapping: any, reflection: DeclarationReflection) {
-    return mapping.directory + '/' + this.getUrl(reflection) + (this.includeExtension ? '.md' : '');
+    return mapping.directory + '/' + this.getUrl(reflection) + '.md';
   }
 
   getUrl(reflection: Reflection, relative?: Reflection): string {
@@ -173,6 +173,10 @@ export class MarkdownTheme extends Theme {
     container: Reflection,
     isSymbol = false,
   ) {
+    if (this.includeExtension && !!reflection.url) {
+      reflection.url = reflection.url.replace(/\.md$/, '');
+    }
+
     if (
       container.url &&
       (!reflection.url || !MarkdownTheme.URL_PREFIX.test(reflection.url))
