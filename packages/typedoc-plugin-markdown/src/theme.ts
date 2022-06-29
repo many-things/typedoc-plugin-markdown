@@ -39,6 +39,7 @@ export class MarkdownTheme extends Theme {
   out!: string;
   publicPath!: string;
   preserveAnchorCasing!: boolean;
+  includeExtension!: boolean;
 
   project?: ProjectReflection;
   reflection?: DeclarationReflection;
@@ -69,6 +70,10 @@ export class MarkdownTheme extends Theme {
     this.preserveAnchorCasing = this.getOption(
       'preserveAnchorCasing',
     ) as boolean;
+    this.includeExtension = this.getOption(
+      'includeExtension',
+    ) as boolean;
+
 
     this.listenTo(this.owner, {
       [RendererEvent.BEGIN]: this.onBeginRenderer,
@@ -145,7 +150,7 @@ export class MarkdownTheme extends Theme {
   }
 
   toUrl(mapping: any, reflection: DeclarationReflection) {
-    return mapping.directory + '/' + this.getUrl(reflection) + '.md';
+    return mapping.directory + '/' + this.getUrl(reflection) + (this.includeExtension ? '.md' : '');
   }
 
   getUrl(reflection: Reflection, relative?: Reflection): string {
